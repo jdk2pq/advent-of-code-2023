@@ -1,9 +1,12 @@
 import { run, position } from "promise-path";
-import { reportGenerator, replaceInFile } from "./util";
+import { reportGenerator, replaceInFile } from "./util.ts";
+import { fileURLToPath } from 'url'
+import path from 'path'
+const __filename = fileURLToPath(import.meta.url)
 
 const report = reportGenerator(__filename);
 
-const fromHere = position(__dirname);
+const fromHere = position(path.dirname(__filename));
 const setup = async (): Promise<void> => {
   const currentPath: string = fromHere("/");
   console.log(currentPath);

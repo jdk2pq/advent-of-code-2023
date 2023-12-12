@@ -1,14 +1,16 @@
+import { copyTemplate } from './copy-template.ts'
+
 const solutionId = process.argv[2];
 import fs from "fs";
 
 const runSolution = (day) =>
-  require(`./solutions/${solutionId}/solution.ts`).run(day);
+  import(`./solutions/${solutionId}/solution.ts`).then((module) => module.run(day));
 
 const copyCodeTemplate = async () => {
   try {
-    await require("./copy-template.ts");
+    await copyTemplate();
     await runSolution(solutionId);
-  } catch (ex) {
+  } catch (ex: any) {
     console.error(
       `Unable to run solution for '${solutionId}': ${ex}`,
       ex.stack

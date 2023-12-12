@@ -1,6 +1,6 @@
 # Advent of Code Template
 
-Advent of Code Template using Node TS for Current Year.
+Advent of Code Template using Node TS for 2023.
 
 Forked from [johnbeech's repo](https://github.com/johnbeech/advent-of-code-nodejs-template)
 

@@ -1,9 +1,11 @@
 import path from "path";
 import { make, find, read, write, run, position } from "promise-path";
-import { reportGenerator } from "./util";
+import { reportGenerator } from "./util.ts";
+import { fileURLToPath } from 'url'
+const __filename = fileURLToPath(import.meta.url)
 
 const report = reportGenerator(__filename);
-const fromHere = position(__dirname);
+const fromHere = position(path.dirname(__filename));
 
 async function fetchAOCDInput(currentYear: number, currentDay: number) {
   report(
@@ -18,13 +20,13 @@ async function fetchAOCDInput(currentYear: number, currentDay: number) {
       report(`Downloaded ${stderr.bytes} bytes of data using AOCD.`);
     }
     return stdout;
-  } catch (ex) {
+  } catch (ex: any) {
     report(`Could not fetch input for ${currentYear} / ${currentDay}`, ex);
   }
   return "PASTE YOUR INPUT HERE";
 }
 
-async function copyTemplate() {
+export async function copyTemplate() {
   const newFolderName = process.argv[2];
   const templateFolderPath = "solutions/template";
   const targetFolderPath: string = fromHere(`solutions/${newFolderName}`);
@@ -88,7 +90,7 @@ async function copyTemplate() {
         aocInputText,
         "utf8"
       );
-    } catch (ex) {
+    } catch (ex: any) {
       console.error(ex);
     }
   } else {
@@ -97,5 +99,3 @@ async function copyTemplate() {
 
   report("Done.");
 }
-
-module.exports = copyTemplate();
